@@ -16,11 +16,12 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: _buildCoverImage(),
           ),
           Expanded(
@@ -49,7 +50,7 @@ class BookCard extends StatelessWidget {
       width: double.infinity,
       color: Colors.grey[200],
       child: const Center(
-        child: Icon(Icons.book, size: 50, color: Colors.grey),
+        child: Icon(Icons.book, size: 40, color: Colors.grey),
       ),
     );
   }
@@ -59,6 +60,7 @@ class BookCard extends StatelessWidget {
       padding: const EdgeInsets.all(AppConstants.smallPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             title ?? 'Book Title',
@@ -69,7 +71,7 @@ class BookCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             author ?? 'Author Name',
             style: TextStyle(
