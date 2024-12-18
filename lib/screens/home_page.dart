@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
+import '../providers/book_provider.dart';
 import '../widgets/book_grid.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,7 +20,7 @@ class HomePage extends StatelessWidget {
                 prefixIcon: const Icon(Icons.search),
               ),
               onChanged: (value) {
-                // TODO: Implement search functionality
+                context.read<BookProvider>().setSearchQuery(value);
               },
             ),
             const SizedBox(height: AppConstants.mediumPadding),

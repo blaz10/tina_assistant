@@ -4,8 +4,8 @@ class AppConstants {
 
   // Grid constants
   static const int gridCrossAxisCount = 3;
-  static const double gridChildAspectRatio = 0.7;
-  static const double gridSpacing = 16.0;
+  static const double gridChildAspectRatio = 0.85;
+  static const double gridSpacing = 40.0;
 
   // Padding constants
   static const double defaultPadding = 50.0;

@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import '../constants/app_constants.dart';
+import '../models/book.dart';
 
 class BookCard extends StatelessWidget {
-  final String? title;
-  final String? author;
-  final String? coverUrl;
+  final Book book;
 
   const BookCard({
     super.key,
-    this.title,
-    this.author,
-    this.coverUrl,
+    required this.book,
   });
 
   @override
@@ -21,11 +18,11 @@ class BookCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            flex: 5,
+            flex: 6,
             child: _buildCoverImage(),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: _buildBookInfo(),
           ),
         ],
@@ -34,9 +31,9 @@ class BookCard extends StatelessWidget {
   }
 
   Widget _buildCoverImage() {
-    if (coverUrl != null) {
+    if (book.coverUrl != null) {
       return Image.network(
-        coverUrl!,
+        book.coverUrl!,
         width: double.infinity,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) => _buildPlaceholder(),
@@ -63,17 +60,16 @@ class BookCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            title ?? 'Book Title',
+            book.title,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: AppConstants.titleFontSize,
             ),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 2),
           Text(
-            author ?? 'Author Name',
+            book.author,
             style: TextStyle(
               color: Colors.grey[600],
               fontSize: AppConstants.subtitleFontSize,
