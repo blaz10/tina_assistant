@@ -24,18 +24,21 @@ class BookService {
     try {
       final response = await http.get(
         url,
-        headers: {'Accept': 'application/json'}, // Specify JSON response
+        headers: {'Accept': 'application/json'},
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final docs = data['docs'] as List;
+        final numFound = data['numFound'] as int? ?? 0;
 
         // Process data in parallel
         final books = await compute(_processBooks, docs);
 
-        // Cache the results
-        _cache[query] = books;
+        // Only cache if we have all results
+        if (books.length >= numFound) {
+          _cache[query] = books;
+        }
 
         return books;
       } else {

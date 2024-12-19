@@ -16,7 +16,7 @@ class BookProvider extends ChangeNotifier {
 
   Future<void> setSearchQuery(String query) async {
     if (_isLoading) return;
-    
+
     _searchQuery = query.trim();
     _error = null;
     _isLoading = true;
@@ -24,7 +24,7 @@ class BookProvider extends ChangeNotifier {
 
     try {
       _books = await _bookService.searchBooks(_searchQuery);
-      if (_books.isEmpty) {
+      if (_books.isEmpty && _searchQuery.isNotEmpty) {
         _error = 'No books found for "$_searchQuery"';
       }
     } catch (e) {

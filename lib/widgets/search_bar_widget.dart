@@ -29,6 +29,12 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
+    // Don't search if query is too short
+    if (query.trim().length < 2) {
+      widget.onSearch(''); // Clear results for short queries
+      return;
+    }
+
     _debounce = Timer(_debounceTime, () {
       widget.onSearch(query);
     });
