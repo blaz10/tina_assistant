@@ -26,8 +26,12 @@ class BookProvider extends ChangeNotifier {
         12,
         (index) => Book(
           id: 'book_$index',
-          title: 'Book Title ${index + 1}',
-          author: 'Author ${index + 1}',
+          title: 'Title ${index + 1}',
+          author: 'Name ',
+          description: 'Description',
+          categories: ['Adventure', 'Fantasy', 'Action'],
+          publishedYear: '2020',
+          characters: ['Characters'],
           coverUrl: null,
         ),
       );

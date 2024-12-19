@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/app_constants.dart';
 import '../models/book.dart';
+import '../screens/book_details_page.dart';
 
 class BookCard extends StatelessWidget {
   final Book book;
@@ -14,18 +15,29 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 6,
-            child: _buildCoverImage(),
-          ),
-          Expanded(
-            flex: 3,
-            child: _buildBookInfo(),
-          ),
-        ],
+      child: InkWell(
+        onTap: () => _navigateToDetails(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 6,
+              child: _buildCoverImage(),
+            ),
+            Expanded(
+              flex: 3,
+              child: _buildBookInfo(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _navigateToDetails(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BookDetailsPage(book: book),
       ),
     );
   }
