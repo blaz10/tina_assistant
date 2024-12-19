@@ -75,7 +75,7 @@ class BookDetailsPage extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withAlpha(51), // 0.2 * 255 ≈ 51
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),

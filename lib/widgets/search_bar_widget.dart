@@ -17,6 +17,8 @@ class SearchBarWidget extends StatefulWidget {
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   final _controller = TextEditingController();
   Timer? _debounce;
+  static const _minQueryLength = 2;
+  static const _debounceTime = Duration(milliseconds: 300);
 
   @override
   void dispose() {
@@ -27,7 +29,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
   void _onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
+    
+    // Only search if query meets minimum length
+    if (query.trim().length < _minQueryLength) return;
+    
+    _debounce = Timer(_debounceTime, () {
       widget.onSearch(query);
     });
   }
