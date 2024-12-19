@@ -23,6 +23,7 @@ class BookSearchApp extends StatelessWidget {
       title: AppConstants.appTitle,
       theme: AppTheme.lightTheme,
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
