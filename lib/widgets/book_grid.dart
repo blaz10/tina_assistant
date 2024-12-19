@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
 import '../providers/book_provider.dart';
+import '../utils/responsive_helper.dart';
 import 'book_card.dart';
 
 class BookGrid extends StatelessWidget {
@@ -22,11 +23,11 @@ class BookGrid extends StatelessWidget {
         }
 
         return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: AppConstants.gridCrossAxisCount,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: ResponsiveHelper.getGridCrossAxisCount(context).toInt(),
             childAspectRatio: AppConstants.gridChildAspectRatio,
-            crossAxisSpacing: AppConstants.gridSpacing,
-            mainAxisSpacing: AppConstants.gridSpacing,
+            crossAxisSpacing: ResponsiveHelper.getGridSpacing(context),
+            mainAxisSpacing: ResponsiveHelper.getGridSpacing(context),
           ),
           itemCount: bookProvider.books.length,
           itemBuilder: (context, index) {

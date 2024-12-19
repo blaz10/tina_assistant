@@ -12,9 +12,9 @@ class BookSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: AppConstants.searchHint,
-        prefixIcon: const Icon(Icons.search),
+        prefixIcon: Icon(Icons.search),
       ),
       onChanged: onChanged,
     );
