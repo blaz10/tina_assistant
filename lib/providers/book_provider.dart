@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
 import '../models/book.dart';
+import '../services/book_service.dart';
 
 class BookProvider extends ChangeNotifier {
+  final BookService _bookService = BookService();
   List<Book> _books = [];
   String _searchQuery = '';
   bool _isLoading = false;
+  String? _error;
 
   List<Book> get books => _books;
   String get searchQuery => _searchQuery;
   bool get isLoading => _isLoading;
+  String? get error => _error;
 
-  void setSearchQuery(String query) {
-    _searchQuery = query;
-    searchBooks();
-  }
-
-  Future<void> searchBooks() async {
+  Future<void> setSearchQuery(String query) async {
+    if (_isLoading) return;
+    
+    _searchQuery = query.trim();
+    _error = null;
     _isLoading = true;
     notifyListeners();
 
     try {
-      // TODO: Implement actual API call
-      await Future.delayed(const Duration(seconds: 1)); // Simulate API call
-      _books = List.generate(
-        12,
-        (index) => Book(
-          id: 'book_$index',
-          title: 'Title ${index + 1}',
-          author: 'Name ',
-          description: 'Description',
-          categories: ['Adventure', 'Fantasy', 'Action'],
-          publishedYear: '2020',
-          characters: ['Characters'],
-          coverUrl: null,
-        ),
-      );
+      _books = await _bookService.searchBooks(_searchQuery);
+      if (_books.isEmpty) {
+        _error = 'No books found for "$_searchQuery"';
+      }
     } catch (e) {
+      _error = 'Failed to load books. Please try again.';
       _books = [];
       debugPrint('Error searching books: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  void clearSearch() {
+    _searchQuery = '';
+    _books = [];
+    _error = null;
+    notifyListeners();
   }
 }

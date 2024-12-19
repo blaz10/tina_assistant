@@ -8,7 +8,7 @@ import 'screens/home_page.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (_) => BookProvider()..searchBooks(),
+      create: (_) => BookProvider(),
       child: const BookSearchApp(),
     ),
   );

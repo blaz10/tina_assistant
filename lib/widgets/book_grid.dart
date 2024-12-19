@@ -16,9 +16,21 @@ class BookGrid extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (bookProvider.books.isEmpty) {
+        if (bookProvider.error != null) {
+          return Center(
+            child: Text(
+              bookProvider.error!,
+              style: const TextStyle(fontSize: 16),
+            ),
+          );
+        }
+
+        if (bookProvider.books.isEmpty && bookProvider.searchQuery.isEmpty) {
           return const Center(
-            child: Text('No books found'),
+            child: Text(
+              'Enter a search term to find books',
+              style: TextStyle(fontSize: 16),
+            ),
           );
         }
 
