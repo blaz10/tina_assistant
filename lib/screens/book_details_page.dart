@@ -3,6 +3,8 @@ import '../constants/app_constants.dart';
 import '../models/book.dart';
 import '../utils/responsive_helper.dart';
 
+/// Detailed view of a single book.
+/// Shows book cover, title, author, and other metadata.
 class BookDetailsPage extends StatelessWidget {
   final Book book;
 
@@ -33,6 +35,7 @@ class BookDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Responsive layout based on screen size
                   if (ResponsiveHelper.isMobile(context))
                     _buildMobileLayout(context)
                   else
@@ -46,6 +49,7 @@ class BookDetailsPage extends StatelessWidget {
     );
   }
 
+  /// Builds the mobile layout with vertical alignment
   Widget _buildMobileLayout(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,6 +61,7 @@ class BookDetailsPage extends StatelessWidget {
     );
   }
 
+  /// Builds the desktop layout with horizontal alignment
   Widget _buildDesktopLayout(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,6 +73,7 @@ class BookDetailsPage extends StatelessWidget {
     );
   }
 
+  /// Builds the book cover image or placeholder
   Widget _buildCoverImage(BuildContext context, double height) {
     return Center(
       child: Container(
@@ -93,6 +99,7 @@ class BookDetailsPage extends StatelessWidget {
     );
   }
 
+  /// Builds a placeholder for missing cover images
   Widget _buildPlaceholder(double height) {
     return Container(
       height: height,
@@ -104,6 +111,7 @@ class BookDetailsPage extends StatelessWidget {
     );
   }
 
+  /// Builds the book information section
   Widget _buildBookInfo(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,6 +139,7 @@ class BookDetailsPage extends StatelessWidget {
     );
   }
 
+  /// Builds a section of book information with a title and content
   Widget _buildInfoSection(String title, String content) {
     return Padding(
       padding: const EdgeInsets.only(bottom: AppConstants.mediumPadding),

@@ -6,6 +6,8 @@ import '../utils/responsive_helper.dart';
 import '../widgets/book_grid.dart';
 import '../widgets/search_bar_widget.dart';
 
+/// Main screen of the application.
+/// Displays the search bar and book grid.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -13,9 +15,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppConstants.appTitle),
-        centerTitle: true,
-      ),
+          //title: const Text(AppConstants.appTitle),
+          //centerTitle: true,
+          ),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: ResponsiveHelper.getHorizontalPadding(context),
@@ -24,6 +26,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Search bar with maximum width constraint
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppConstants.defaultPadding,
@@ -32,12 +35,14 @@ class HomePage extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 800),
                 child: SearchBarWidget(
                   onSearch: (query) {
+                    // Update search query in provider
                     context.read<BookProvider>().setSearchQuery(query);
                   },
                 ),
               ),
             ),
             const SizedBox(height: AppConstants.mediumPadding),
+            // Grid of book results
             const Expanded(
               child: BookGrid(),
             ),

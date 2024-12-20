@@ -5,6 +5,8 @@ import 'constants/app_constants.dart';
 import 'providers/book_provider.dart';
 import 'screens/home_page.dart';
 
+/// Entry point of the application.
+/// Sets up the provider and theme configuration.
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -14,6 +16,8 @@ void main() {
   );
 }
 
+/// Root widget of the application.
+/// Configures the app theme and initial route.
 class BookSearchApp extends StatelessWidget {
   const BookSearchApp({super.key});
 
