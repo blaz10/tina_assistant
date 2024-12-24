@@ -13,9 +13,9 @@ class BookService {
   final Map<String, List<Book>> _cache = {};
 
   /// Searches for books using the OpenLibrary API.
-  /// 
+  ///
   /// [query] - The search term to look for books
-  /// 
+  ///
   /// Returns a list of [Book] objects matching the search query.
   /// Returns an empty list if the query is empty or no results are found.
   Future<List<Book>> searchBooks(String query) async {
@@ -41,6 +41,7 @@ class BookService {
         final data = json.decode(response.body);
         final docs = data['docs'] as List;
         final numFound = data['numFound'] as int? ?? 0;
+
 
         // Process data in parallel for better performance
         final books = await compute(_processBooks, docs);
@@ -75,7 +76,8 @@ List<Book> _processBooks(List<dynamic> docs) {
       title: doc['title'] ?? 'Unknown Title',
       author: _getAuthor(doc['author_name']),
       coverUrl: coverUrl,
-      description: doc['first_sentence']?.join(' ') ?? 'No description available',
+      description:
+          doc['first_sentence']?.join(' ') ?? 'No description available',
       categories: _getList(doc['subject']),
       publishedYear: _getYear(doc['first_publish_year']),
       characters: _getList(doc['person']),
