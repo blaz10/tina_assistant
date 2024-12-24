@@ -15,9 +15,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          //title: const Text(AppConstants.appTitle),
-          //centerTitle: true,
-          ),
+        toolbarHeight: 10,
+        //title: const Text(AppConstants.appTitle),
+        //centerTitle: true,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: ResponsiveHelper.getHorizontalPadding(context),

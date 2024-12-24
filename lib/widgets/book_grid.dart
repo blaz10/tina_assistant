@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_constants.dart';
+import '../models/book.dart';
 import '../providers/book_provider.dart';
 import '../utils/responsive_helper.dart';
 import 'book_card.dart';
@@ -34,19 +35,34 @@ class BookGrid extends StatelessWidget {
           );
         }
 
-        return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: ResponsiveHelper.getGridCrossAxisCount(context).toInt(),
-            childAspectRatio: AppConstants.gridChildAspectRatio,
-            crossAxisSpacing: ResponsiveHelper.getGridSpacing(context),
-            mainAxisSpacing: ResponsiveHelper.getGridSpacing(context),
-          ),
-          itemCount: bookProvider.books.length,
-          itemBuilder: (context, index) {
-            return BookCard(book: bookProvider.books[index]);
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final isMobile = ResponsiveHelper.isMobile(context);
+            final crossAxisCount = _calculateCrossAxisCount(constraints.maxWidth);
+            final aspectRatio = isMobile ? 0.65 : AppConstants.gridChildAspectRatio;
+            final spacing = isMobile ? AppConstants.smallPadding : AppConstants.mediumPadding;
+
+            return GridView.builder(
+              padding: EdgeInsets.all(spacing),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                childAspectRatio: aspectRatio,
+                crossAxisSpacing: spacing,
+                mainAxisSpacing: spacing,
+              ),
+              itemCount: bookProvider.books.length,
+              itemBuilder: (context, index) => BookCard(book: bookProvider.books[index]),
+            );
           },
         );
       },
     );
+  }
+
+  int _calculateCrossAxisCount(double width) {
+    if (width <= 500) return 2;
+    if (width <= 800) return 3;
+    if (width <= 1100) return 4;
+    return 5;
   }
 }

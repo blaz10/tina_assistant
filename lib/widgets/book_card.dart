@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants.dart';
 import '../models/book.dart';
 import '../screens/book_details_page.dart';
+import '../utils/responsive_helper.dart';
 
 class BookCard extends StatelessWidget {
   final Book book;
@@ -25,8 +26,8 @@ class BookCard extends StatelessWidget {
               child: _buildCoverImage(),
             ),
             Expanded(
-              flex: 3,
-              child: _buildBookInfo(),
+              flex: ResponsiveHelper.isMobile(context) ? 4 : 3,
+              child: _buildBookInfo(context),
             ),
           ],
         ),
@@ -64,29 +65,36 @@ class BookCard extends StatelessWidget {
     );
   }
 
-  Widget _buildBookInfo() {
+  Widget _buildBookInfo(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final titleStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: isMobile ? 12.0 : AppConstants.titleFontSize,
+      height: 1.2,
+    );
+    final authorStyle = TextStyle(
+      color: Colors.grey[600],
+      fontSize: isMobile ? 11.0 : AppConstants.subtitleFontSize,
+      height: 1.2,
+    );
+
     return Padding(
-      padding: const EdgeInsets.all(AppConstants.smallPadding),
+      padding: EdgeInsets.all(isMobile ? 6.0 : AppConstants.smallPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             book.title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: AppConstants.titleFontSize,
-            ),
-            maxLines: 1,
+            style: titleStyle,
+            maxLines: isMobile ? 2 : 1,
             overflow: TextOverflow.ellipsis,
           ),
+          const SizedBox(height: 2),
           Text(
             book.author,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: AppConstants.subtitleFontSize,
-            ),
-            maxLines: 1,
+            style: authorStyle,
+            maxLines: isMobile ? 2 : 1,
             overflow: TextOverflow.ellipsis,
           ),
         ],
